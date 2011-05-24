@@ -225,6 +225,7 @@ mysqlexec $DW_ROOT_DIR/functions/calc_prev_date_id_function.sql
 mysqlexec $DW_ROOT_DIR/functions/primary_partner_functions.sql
 mysqlexec $DW_ROOT_DIR/functions/top_activities_procedure.sql
 mysqlexec $DW_ROOT_DIR/functions/calc_time_shift.sql
+mysqlexec $DW_ROOT_DIR/functions/calc_partner_storage_data_time_range.sql
 
 #dw/op_services/
 mysqlexec $DW_ROOT_DIR/op_services/calc_partner_billing_data_procedure.sql

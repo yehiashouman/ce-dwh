@@ -1,7 +1,5 @@
 DELIMITER $$
 
-USE `kalturadw`$$
-
 DROP PROCEDURE IF EXISTS `calc_entries_sizes`$$
 
 CREATE DEFINER=`etl`@`localhost` PROCEDURE `calc_entries_sizes`(p_date_id INT(11))
@@ -71,9 +69,9 @@ BEGIN
 	ON DUPLICATE KEY UPDATE 
 		entry_additional_size_kb = VALUES(entry_additional_size_kb);
 	
-	
-	INSERT INTO kalturadw.dwh_fact_entries_sizes (partner_id, entry_id, entry_size_date, entry_size_date_id, entry_additional_size_kb)
-		SELECT es.partner_id, es.entry_id, v_date, p_date_id, -SUM(entry_additional_size_kb)
+	DROP TABLE IF EXISTS deleted_entries;
+	CREATE TEMPORARY TABLE deleted_entries AS
+		SELECT es.partner_id partner_id, es.entry_id entry_id, v_date entry_size_date, p_date_id entry_size_date_id, -SUM(entry_additional_size_kb) entry_additional_size_kb
 		FROM kalturadw.dwh_dim_entries e USE INDEX (modified_at) INNER JOIN kalturadw.dwh_fact_entries_sizes es
 		WHERE e.modified_at BETWEEN v_date AND v_date + INTERVAL 1 DAY
 		AND e.entry_id = es.entry_id 
@@ -83,7 +81,10 @@ BEGIN
 		AND e.entry_status_id = 3
 		AND es.entry_size_date_id < p_date_id
 		GROUP BY es.partner_id, es.entry_id
-		HAVING SUM(entry_additional_size_kb) > 0
+		HAVING SUM(entry_additional_size_kb) > 0;
+	
+	INSERT INTO kalturadw.dwh_fact_entries_sizes (partner_id, entry_id, entry_size_date, entry_size_date_id, entry_additional_size_kb)
+		SELECT partner_id, entry_id, entry_size_date, entry_size_date_id, entry_additional_size_kb FROM deleted_entries
 	ON DUPLICATE KEY UPDATE 
 		entry_additional_size_kb = VALUES(entry_additional_size_kb);
 	

@@ -187,7 +187,7 @@ class Installer {
 		if (!OsUtils::fullCopy('installer/uninstall.php', $app->get('BASE_DIR')."/uninstaller/")) {
 			return "Failed to create the uninstaller";
 		}
-		$app->saveUninstallerConfig();
+		$app->saveUninstallerConfig($this->install_config['symlinks']);
 
 		
 		logMessage(L_USER, "Running the batch manager");

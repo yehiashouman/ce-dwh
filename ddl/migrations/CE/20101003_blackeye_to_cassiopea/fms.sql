@@ -86,7 +86,7 @@ CREATE TABLE `dwh_dim_fms_virtual_host` (
 ) ENGINE=MYISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 ALTER TABLE `dwh_dim_ip_ranges`
-ADD UNIQUE KEY `ip_ranges_from_country` (`IP_FROM`,`country_id`,`location_id`);
+	ADD UNIQUE KEY `ip_ranges_from_country` (`IP_FROM`,`country_id`,`location_id`);
 
 CREATE TABLE `dwh_dim_partner_aliases` (
   `partner_aliases_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -2361,6 +2361,7 @@ CREATE TABLE `ods_fms_session_events` (
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`etl`@`%` FUNCTION `get_ip_country_location`(ip BIGINT) RETURNS varchar(30) CHARSET latin1
+	DETERMENISTIC
 BEGIN
 	DECLARE res VARCHAR(30);
 	SELECT CONCAT(country_id,",",location_id)

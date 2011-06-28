@@ -1834,6 +1834,7 @@ CREATE TABLE `updated_entries` (
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`etl`@`localhost` FUNCTION `get_ip_country_location`(ip BIGINT) RETURNS varchar(30) CHARSET latin1
+	DETERMINISTIC
 BEGIN
 	DECLARE res VARCHAR(30);
 	SELECT CONCAT(country_id,",",location_id)

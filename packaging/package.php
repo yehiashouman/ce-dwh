@@ -83,6 +83,7 @@ $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_di
 $revisions += svn_export_group($manifest['uiconf'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['dwh'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['html5'], $manifest['global'], $base_dir);
+$revisions += svn_export_group($manifest['apps'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['installer'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['doc'], $manifest['global'], $base_dir);
 $revisions_str = implode(PHP_EOL, $revisions);

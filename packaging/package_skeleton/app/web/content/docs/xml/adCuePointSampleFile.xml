@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenes	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<scene-ad-cue-point entryId="{entry id}" systemName="MY_AD_CUE_POINT_SYSTEM_NAME">
+		<sceneStartTime>00:00:05</sceneStartTime>
+		<tags>
+			<tag>sample</tag>
+			<tag>my_tag</tag>
+		</tags>
+		<sceneTitle>my ad title</sceneTitle>
+		<sourceUrl>http://source.to.my/ad.xml</sourceUrl>
+		<adType>1</adType>
+		<protocolType>1</protocolType>
+		<!--
+		<scene-customData metadataProfile="MY_AD_METADATA_PROFILE">
+			<metadata>
+				<adData>my ad custom data</adData>
+			</metadata>
+		</scene-customData>
+		-->
+	</scene-ad-cue-point>
+	<scene-annotation entryId="{entry id}" systemName="MY_ANNOTATION_PARENT_SYSTEM_NAME">
+		<sceneStartTime>00:00:05.3</sceneStartTime>
+		<tags>
+			<tag>sample</tag>
+			<tag>my_tag</tag>
+		</tags>
+		<sceneEndTime>00:00:10</sceneEndTime>
+		<sceneText>my annotation parent</sceneText>
+		<!--
+		<scene-customData metadataProfile="MY_ANNOTATION_METADATA_PROFILE">
+			<metadata>
+				<annotationData>my annotation custom data</annotationData>
+			</metadata>
+		</scene-customData>
+		-->
+	</scene-annotation>
+	<scene-annotation entryId="{entry id}">
+		<sceneStartTime>00:00:05.3</sceneStartTime>
+		<tags>
+			<tag>sample</tag>
+			<tag>my_tag</tag>
+		</tags>
+		<sceneEndTime>00:00:10</sceneEndTime>
+		<sceneText>my annotation child</sceneText>
+		<parent>MY_ANNOTATION_PARENT_SYSTEM_NAME</parent>
+		<!--
+		<scene-customData metadataProfile="MY_ANNOTATION_METADATA_PROFILE">
+			<metadata>
+				<annotationData>my annotation custom data2</annotationData>
+				<TextMulti>test eee</TextMulti>
+				<TextMulti>test fff</TextMulti>
+				<List1>ccc</List1>
+			</metadata>
+		</scene-customData>
+		-->
+	</scene-annotation>
+	<scene-code-cue-point entryId="{entry id}">
+		<sceneStartTime>00:00:05.3</sceneStartTime>
+		<tags>
+			<tag>sample</tag>
+			<tag>my_tag</tag>
+		</tags>
+		<code>MY_CODE</code>
+		<description>my code cue point description</description>
+		<!--
+		<scene-customData metadataProfile="MY_CODE_METADATA_PROFILE">
+			<metadata>
+				<codeData>my code custom data</codeData>
+				<TextMulti>test eee</TextMulti>
+				<TextMulti>test fff</TextMulti>
+				<List1>ccc</List1>
+			</metadata>
+		</scene-customData>
+		-->
+	</scene-code-cue-point>
+</scenes>

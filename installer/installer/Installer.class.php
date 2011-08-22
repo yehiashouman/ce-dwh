@@ -84,6 +84,24 @@ class Installer {
 			return "Failed to copy binaris for $os_name $architecture";
 		}
 		
+		// if vmware installation copy configurator folders
+		if ($app->get('KALTURA_PREINSTALLED')) {
+			mkdir($app->get('BASE_DIR').'/installer', 0777, true);
+			if (!OsUtils::fullCopy('installer/', $app->get('BASE_DIR').'/installer')) {
+				return "Failed to copy installer files to target directory";
+			}
+			
+			if (!OsUtils::fullCopy('configurator/', $app->get('BASE_DIR').'/installer')) {
+				return "Failed to copy configurator files to target directory";
+			}
+			
+			if (!OsUtils::fullCopy('configure.php', $app->get('BASE_DIR')."/installer/")) {
+				return "Failed to copy configure.php file to targer directory";
+			}
+		
+		}
+		
+		
 		logMessage(L_USER, "Replacing configuration tokens in files");
 		foreach ($this->install_config['token_files'] as $file) {
 			$replace_file = $app->replaceTokensInString($file);

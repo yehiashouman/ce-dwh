@@ -168,6 +168,23 @@ class Installer {
 			return "Failed to create sphinx configuration file (kaltura.conf)";
 		}
 		
+		logMessage(L_USER, "Populate sphinx tables");
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxEntries.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+				logMessage(L_INFO, "sphinx entries log created");
+		} else {
+			return "Failed to populate sphinx log from entries";
+		}
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxEntryDistributions.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+				logMessage(L_INFO, "sphinx content distribution log created");
+		} else {
+			return "Failed to populate sphinx log from content distribution";
+		}
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxCuePoints.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+				logMessage(L_INFO, "sphinx cue points log created");
+		} else {
+			return "Failed to populate sphinx log from cue points";
+		}
+		
 //		logMessage(L_USER, "Running sphinx");
 //		if (OsUtils::execute(sprintf("%s/bin/sphinx/searchd --config %s/configurations/sphinx/kaltura.conf", $app->get('BASE_DIR'),$app->get('APP_DIR')))) {
 //				logMessage(L_INFO, "sphinx is running");

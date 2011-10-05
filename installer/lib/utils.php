@@ -122,15 +122,19 @@
 	// exports a "svn group" using "svn global" and the given $base_dir to add to the local path
 	// $group is a hashtable with ['svn_path'], ['local_path'], ['get'] (has '*' in [0] or a list of subdirectories to export)
 	// $global is a hashtable with ['svn_repo'], ['svn_user'], ['svn_pass'] 
-	function svn_export_group($group, $global, $base_dir)
+	function svn_export_group($group, $global, $base_dir, $singleGet = null)
 	{	
 		$revision = array();
 		if ($group['get'][0] == '*') {
 			$revision[$global['svn_repo'] . $group['svn_path']] = svn_export($global['svn_repo'] . $group['svn_path'], $global['svn_user'], $global['svn_pass'], $base_dir . $group['local_path']);
 		}
 		else {
-			foreach($group['get'] as $current) {
-				$revision[$global['svn_repo'] . $group['svn_path'] . $current] = svn_export($global['svn_repo'] . $group['svn_path'] . $current, $global['svn_user'], $global['svn_pass'], $base_dir . $group['local_path'] . $current);
+			if($singleGet){
+				$revision[$global['svn_repo'] . $group['svn_path'] . $singleGet] = svn_export($global['svn_repo'] . $group['svn_path'] . $singleGet, $global['svn_user'], $global['svn_pass'], $base_dir . $group['local_path'] . $singleGet);
+			} else {
+				foreach($group['get'] as $current) {
+					$revision[$global['svn_repo'] . $group['svn_path'] . $current] = svn_export($global['svn_repo'] . $group['svn_path'] . $current, $global['svn_user'], $global['svn_pass'], $base_dir . $group['local_path'] . $current);
+				}
 			}
 		}
 		if (isset($group['remove'])) {
@@ -227,4 +231,11 @@
 		$manipulated_content = str_replace('<Plugin id="kalturaMix"','<Plugin id="kalturaMix" disableUrlHashing="true" ',$uiconf_content);
 		file_put_contents($uiconf, $manipulated_content);
 	}
-?>
+	
+	function getVersionFromKconf($kconf, $label)
+	{
+		if (preg_match("/".$label." = .*/", $kconf, $matches)) {
+			$firstPos = stripos($matches[0],"=");
+			return trim(substr($matches[0],1+$firstPos));
+		}
+	}

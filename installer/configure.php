@@ -109,7 +109,7 @@ if (strcasecmp($type, K_TM_TYPE) !== 0) {
 
 echo PHP_EOL;
 logMessage(L_USER, sprintf("Configuration Completed Successfully.\nYour Kaltura Admin Console credentials:\nSystem Admin user: %s\nSystem Admin password: %s\n\nPlease keep this information for future use.\n", $app->get('ADMIN_CONSOLE_ADMIN_MAIL'), $app->get('ADMIN_CONSOLE_PASSWORD')));
-logMessage(L_USER, sprintf("To start using Kaltura, please complete the following steps:\n1. Add the following line to your /etc/hosts file:\n\t127.0.0.1 %s\n2. Add the following line to your Apache configurations file (Usually called httpd.conf or apache2.conf):\n\tInclude /opt/kaltura/app/configurations/apache/my_kaltura.conf\n3. Restart apache\n4. Browse to your Kaltura start page at: http://%s/start\n", $app->get("KALTURA_VIRTUAL_HOST_NAME"), $app->get("KALTURA_VIRTUAL_HOST_NAME")));
+logMessage(L_USER, sprintf("To start using Kaltura, please complete the following steps:\n1. Add the following line to your /etc/hosts file:\n\t127.0.0.1 %s\n2. Add the following line to your Apache configurations file (/etc/httpd/conf/httpd.conf):\n\tInclude /opt/kaltura/app/configurations/apache/my_kaltura.conf\n3. Restart apache\n4. Browse to your Kaltura start page at: http://%s/start\n", $app->get("KALTURA_VIRTUAL_HOST_NAME"), $app->get("KALTURA_VIRTUAL_HOST_NAME")));
 
 
 die(0);

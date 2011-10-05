@@ -1,6 +1,6 @@
 <?php
 
-include_once('utils.php');
+include_once('lib/utils.php');
 
 // get and validate arguments
 $usage_string = 'Usage is php '.__FILE__.' <outputdir> <preinstalled> <type> <number> <beta>'.PHP_EOL;
@@ -79,6 +79,19 @@ $revisions += svn_export_group($server_onprem_all, $manifest['global'], $base_di
 $server_onprem_specific = $manifest['server_onprem'];
 $server_onprem_specific['svn_path'] = $server_onprem_specific['svn_path'] . $version_ini['type'] . '/';
 $revisions += svn_export_group($server_onprem_specific, $manifest['global'], $base_dir);
+
+// get from kConf.php the latest versions of kmc
+$kconf = file_get_contents($base_dir."/". $manifest['server_core']['local_path'] . "configurations/base.ini");
+$kmcVersion = getVersionFromKconf($kconf,"kmc_version");
+$revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir,"kmc/".$kmcVersion);
+
+// get kdp kClip versions that are working with kmc version.
+// get it from kmc config file 
+$kmcConf = parse_ini_file($base_dir."/".$manifest['flash']['local_path']."kmc/".$kmcVersion."/config.ini", true);
+
+$revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir,"kdp3/".$kmcConf['defaultKdp']['widgets.kdp1.version']);
+$revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir,"kclip/".$kmcConf['kClip']['widgets.kClip1.version']);
+
 $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['uiconf'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['dwh'], $manifest['global'], $base_dir);

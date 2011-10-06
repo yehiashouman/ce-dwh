@@ -1,25 +1,8 @@
-/*
-SQLyog Community v8.3 
-MySQL - 5.1.41-3ubuntu12.6 : Database - kalturadw
-*********************************************************************
-*/
-
-
-/*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 USE `kalturadw`;
 
-/*Table structure for table `dwh_dim_entries` */
+DROP TABLE IF EXISTS `dwh_dim_entries_new`;
 
-DROP TABLE IF EXISTS `dwh_dim_entries`;
-
-CREATE TABLE `dwh_dim_entries` (
+CREATE TABLE `dwh_dim_entries_new` (
   `entry_id` varchar(20) NOT NULL DEFAULT '',
   `kshow_id` varchar(20) DEFAULT NULL,
   `kuser_id` int(11) DEFAULT '-1',
@@ -91,23 +74,30 @@ CREATE TABLE `dwh_dim_entries` (
   `start_hour_id` tinyint(4) DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
   `end_date_id` int(11) DEFAULT NULL,
-  `end_hour_id` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`entry_id`),
-  KEY `partner_id_created_media_type_source` (`partner_id`,`created_at`,`entry_media_type_id`,`entry_media_source_id`),
-  KEY `dwh_update_date` (`dwh_update_date`),
-  KEY `created_at` (`created_at`),
-  KEY `updated_at` (`updated_at`),
-  KEY `modified_at` (`modified_at`),
-  KEY `entry_id_modified_at` (`entry_id`,`modified_at`),
-  KEY `entry_id_name` (`entry_id`,`entry_name`),
-  KEY `entry_id_media_type` (`entry_id`,`entry_media_type_id`),
-  KEY `entry_FI_3` (`access_control_id`),
-  KEY `entry_FI_5` (`conversion_profile_id`),
-  FULLTEXT KEY `search_text_index` (`search_text`),
-  FULLTEXT KEY `all_text` (`entry_name`,`description`,`tags`,`admin_tags`),
-  FULLTEXT KEY `admin_tags_text` (`admin_tags`),
-  FULLTEXT KEY `search_text_discrete_index` (`search_text_discrete`)
+  `end_hour_id` tinyint(4) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO kalturadw.dwh_dim_entries_new
+select * from kalturadw.dwh_dim_entries;
+
+ALTER TABLE kalturadw.dwh_dim_entries_new
+  ADD KEY `partner_id_created_media_type_source` (`partner_id`,`created_at`,`entry_media_type_id`,`entry_media_source_id`),
+  ADD KEY `dwh_update_date` (`dwh_update_date`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `updated_at` (`updated_at`),
+  ADD KEY `modified_at` (`modified_at`),
+  ADD KEY `entry_id_modified_at` (`entry_id`,`modified_at`),
+  ADD KEY `entry_id_name` (`entry_id`,`entry_name`),
+  ADD KEY `entry_id_media_type` (`entry_id`,`entry_media_type_id`),
+  ADD KEY `entry_FI_3` (`access_control_id`),
+  ADD KEY `entry_FI_5` (`conversion_profile_id`),
+  ADD FULLTEXT KEY `search_text_index` (`search_text`),
+  ADD FULLTEXT KEY `all_text` (`entry_name`,`description`,`tags`,`admin_tags`),
+  ADD FULLTEXT KEY `admin_tags_text` (`admin_tags`),
+  ADD FULLTEXT KEY `search_text_discrete_index` (`search_text_discrete`);
+
+DROP TABLE kalturadw.dwh_dim_entries;
+RENAME TABLE kalturadw.dwh_dim_entries_new TO kalturadw.dwh_dim_entries;
 
 DELIMITER $$
 
@@ -120,9 +110,3 @@ CREATE
 $$
 
 DELIMITER ;
-
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

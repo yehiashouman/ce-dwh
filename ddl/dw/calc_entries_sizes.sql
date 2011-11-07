@@ -20,7 +20,7 @@ BEGIN
 	AND object_type IN (1,4)
 	AND original = 1
 	AND s.STATUS IN (2,3)
-	AND s.partner_id NOT IN (100 /*Default Partner*/ , -1 /*Batch Partner*/ , -2 /*Admin Console*/, 0/* Common Partner Content*/, 99/*Template Partner*/);
+	AND s.partner_id NOT IN (-1 /*Batch Partner*/ , -2 /*Admin Console*/, 0/* Common Partner Content*/, 99/*Template Partner*/);
 	
 	ALTER TABLE today_file_sync_subset ADD INDEX id (`id`);	
 	

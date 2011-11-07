@@ -22,7 +22,7 @@ BEGIN
 	AND object_type IN (1,4)
 	AND original = 1
 	AND s.STATUS IN (2,3)
-	AND s.partner_id NOT IN (100  , -1  , -2  , 0 , 99 );
+	AND s.partner_id NOT IN (-1  , -2  , 0 , 99 );
 	
 	ALTER TABLE today_file_sync_subset ADD INDEX id (`id`);	
 	

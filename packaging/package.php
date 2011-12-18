@@ -81,7 +81,7 @@ $server_onprem_specific['svn_path'] = $server_onprem_specific['svn_path'] . $ver
 $revisions += svn_export_group($server_onprem_specific, $manifest['global'], $base_dir);
 
 // get from kConf.php the latest versions of kmc
-copy("package/app/app/alpha/config/kConfLocal.php.template", "package/app/app/alpha/config/kConfLocal.php");
+copy($base_dir . "/package/app/app/alpha/config/kConfLocal.php.template", $base_dir . "/package/app/app/alpha/config/kConfLocal.php");
 $kconf = file_get_contents($base_dir. "/package/app/app/alpha/config/kConf.php");
 $kmcVersion = getVersionFromKconf($kconf,"kmc_version");
 $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir,"kmc/".$kmcVersion);

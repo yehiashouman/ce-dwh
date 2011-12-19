@@ -3,6 +3,7 @@
 */15 * * * * root @APP_DIR@/alpha/crond/kaltura/clear_cache.sh
 0 2 * * * root @APP_DIR@/alpha/crond/kaltura/delete_old_content.sh
 30 5 * * * root @DWH_DIR@/etlsource/execute/etl_daily.sh -p @DWH_DIR@
+30 5 * * * root @DWH_DIR@/etlsource/execute/etl_hourly.sh -p @DWH_DIR@
 0 8 * * 0 root @PHP_BIN@ @APP_DIR@/plugins/onprem/scripts/reportUsageTrackingIfOptIn.php
 * * * * * root @APP_DIR@/plugins/sphinx_search/scripts/watch.populate.sh @APP_DIR@/plugins/sphinx_search/scripts/configs/server-sphinx.php
  

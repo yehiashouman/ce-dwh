@@ -236,6 +236,14 @@ class Installer {
 		}
 		$app->saveUninstallerConfig($this->install_config['symlinks']);
 		
+		logMessage(L_USER, "Running the generate script");
+		$currentWorkingDir = getcwd();
+		chdir($app->get('APP_DIR').'/generator');
+		if (!OsUtils::execute($app->get('APP_DIR').'/generator/generate.sh')) {
+			return "Failed running the generate script";
+		}
+		chdir($currentWorkingDir);
+		
 		logMessage(L_USER, "Running the batch manager");
 		if (!OsUtils::execute($app->get('APP_DIR').'/scripts/serviceBatchMgr.sh start')) {
 			return "Failed running the btach manager";
@@ -245,13 +253,8 @@ class Installer {
 		print("Executing sphinx dameon \n");
 		OsUtils::executeInBackground('nohup '.$app->get('APP_DIR').'/plugins/sphinx_search/scripts/watch.daemon.sh -u root');
 		
-		logMessage(L_USER, "Running the generate script");
-		$currentWorkingDir = getcwd();
-		chdir($app->get('APP_DIR').'/generator');
-		if (!OsUtils::execute($app->get('APP_DIR').'/generator/generate.sh')) {
-			return "Failed running the generate script";
-		}
-		chdir($currentWorkingDir);
+		
+		
 		
 		$this->changeDirsAndFilesPermissions($app);
 		

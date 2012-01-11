@@ -101,7 +101,7 @@ if (execute($config['BASE_DIR'].'/app/plugins/sphinx_search/scripts/watch.stop.s
 	$success = false;
 }
 
-
+/*
 echo 'Stopping sphinx... ';
 if (execute($config['BASE_DIR'].'/app/plugins/sphinx_search/scripts/searchd.sh stop')) {
 	echo 'OK'.PHP_EOL;
@@ -109,6 +109,7 @@ if (execute($config['BASE_DIR'].'/app/plugins/sphinx_search/scripts/searchd.sh s
 	echo 'Failed'.PHP_EOL;
 	$success = false;
 }
+*/
 
 echo 'Stopping the batch manager... ';
 if (execute($config['BASE_DIR'].'/app/scripts/serviceBatchMgr.sh stop')) {

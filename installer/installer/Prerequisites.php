@@ -78,7 +78,15 @@ if (!extension_loaded('mysqli')) {
 		$prerequisites .= "Please set 'thread_stack >= ".$prerequisites_config["thread_stack"]."' in my.cnf and restart MySQL".PHP_EOL;
 	} else if (intval($thread_stack) < intval($prerequisites_config["thread_stack"])) {
 		$prerequisites .= "Please set 'thread_stack >= ".$prerequisites_config["thread_stack"]."' in my.cnf and restart MySQL (current value is $thread_stack)".PHP_EOL;
-	}	
+	}
+
+	$open_files_limit = getMysqlSetting($link, 'open_files_limit');
+	if (!isset($open_files_limit)) {
+		$prerequisites .= "Please set 'open_files_limit >= ".$prerequisites_config["open_files_limit"]."' in my.cnf and restart MySQL".PHP_EOL;
+	} else if (intval($open_files_limit) < intval($prerequisites_config["open_files_limit"])) {
+		$prerequisites .= "Please set 'open_files_limit >= ".$prerequisites_config["open_files_limit"]."' in my.cnf and restart MySQL (current value is $open_files_limit)".PHP_EOL;
+	}
+
 }
 
 // check apache modules

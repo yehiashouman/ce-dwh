@@ -251,8 +251,8 @@ class Installer {
 		
 		logMessage(L_USER, "Running the sphinx search deamon");
 		print("Executing sphinx dameon \n");
-		OsUtils::executeInBackground('nohup '.$app->get('APP_DIR').'/plugins/sphinx_search/scripts/watch.daemon.sh -u root');
-		
+		OsUtils::executeInBackground('nohup '.$app->get('APP_DIR').'/plugins/sphinx_search/scripts/watch.daemon.onprem.sh');
+		OsUtils::executeInBackground('chkconfig sphinx_watch.sh on');
 		
 		
 		

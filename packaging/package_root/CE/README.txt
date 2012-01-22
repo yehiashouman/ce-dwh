@@ -1,61 +1,89 @@
-Kaltura CE V3 Beta - Release Notes
+Kaltura CE V5 - Release Notes
 ***************************
 General
 =======
-Kaltura CE V3 is based on the Cassiopea release of the Kaltura online video platform.  It provides  new features, infrastructure enhancements, and new API services.
+Kaltura CE V5 is based on the Eagle release of the Kaltura online video platform.  It provides  new features, infrastructure enhancements, and new API services.
 
 Supported/Tested OS
 ====================
-Kaltura CE has been tested on the following operating systems:
-- Ubunto 10.04 - 32-bit/64-bit 
-- CentOS 5.5 – 32-bit/64-bit
-Please note that it is possible to install Kaltura CE on other Linux distributions as well, however it was not yet fully tested by Kaltura
+Kaltura CE has been tested on the CentOS 6.2/64bit operating system. 
+
+While it is possible to install Kaltura CE on other Linux distributions and on a 32-bit server, these configurations were not tested by Kaltura.
+
 
 
 New Features and Functionalities
 ================================
-The following list includes the main new features that are available as part of the Kaltura CE V3.0, for more information, please refer to the KMC Quick Start Guide or to the Kaltura CE documentation pages at http://www.kaltura.org/kaltura-community-edition-kalturace
-- Full support for PHP 5.3
-- Full Support of any VAST ad server in player (Player Advertising tab in KMC studio)
-- Custom Metadata Fields
-- KMC passowrd security enhancments 
-- Mobile support (trascoding flavors)
-- Net Storage - enabling auto-export to and delivery from a remote storage.
-- Sphinx - full text search engine (bundled within the Kaltura CE package)- All entries and playlists searches moved to sphinx search engine
-- Server-side Plug-in infrastructure (documentation will be provided)
+The following list includes the main new features and infrastructure changes that are available as part of the release. For more information, please refer to the packaged KMC Guide or to the Kaltura CE documentation pages within kaltura.org or the “what’s new in Eagle” document at http://blog.kaltura.org/wp-content/uploads/2011/09/Kaltura-Eagle-Release-Whats-New.pdf
+
+- New Upload Tab – upload and prepare media entries directly from the main KMC menu regardless of what page you’re working on. 
+- Upload Control – manage and control your uploads, set priorities, track progress, and continue working in the KMC while your uploads continue processing in the background. 
+- In Video Search – use Kaltura’s new “In Video Search” API to search for a specific phrase within a library of videos and find the exact point in the video where the phrase appears. 
+- Multi Lingual Captions - upload caption files directly into the KMC in different languages and formats. Allow users to select their preferred language and caption setting.
+- Clipping and Trimming – create clips from existing videos, set in and out points – each clip becomes its own media entry encoded to multiple flavors, and can be downloaded, distributed and played back on any device. You can also simply trim the length of a video – all directly from within the KMC.
+- Advertising – insert cue-point and add mid-roll and overlay ads in any video.
+- Metadata Improvements and Related Files – manage multiple metadata schemas and append related documents to media entries.
+- Advanced Ingestion Capabilities –
+- Control the order of ingestion, create “Draft Entries” with metadata and attach the video later
+- Use your own transcoders, and ingest the output flavors to Kaltura
+- Host videos at your preferred location and link to Kaltura
+- Automate content ingestion using Drop Folders
+- Seamlessly replace video assets for a Kaltura entry, media is replaced in all live and syndicated players
 
 
-
-		
 Features that require additional setup/3rd party licensing/CDN capabilities
-===========================================================================
-- RTMP delivery – requires FMS/CDN integration
-- Adaptive bit-rate – requires FMS/CDN integration (already integrated with Akamai)
-- Analytics – for capturing CDN bandwidth usage – CDN logs integration is needed (already integrated with CDN logs of Akamai, limelight, level3)
-- Analytics – user geo-distribution analytics – requires ip2location DB license or integration with another ip to geo service
-- Live streaming workflow – requires CDN integration for live channel provisioning (already integrated with Akamai live channel provisioning).
-- Webcam recording – requires FMS integration – instructions to be provided.
-- Access control – geo restriction - requires ip2location DB license for maintainable ip2location DB (current mapping relies on the IP to country database from http://software77.net/geo-ip
-- Advertising – requires 3rd party account at Tremor/ Adap.tv
-- Content syndication via Tubemogul – requires a tubemogul account
-- Transcoding to the VP6 codec requires On2 transcoder – configuration instructions to be provided.
-- Enabling Encoding.com cloud transcoding requires an account at Encoding.com and batch configuration adjustments - configuration instructions to be provided
+============================================================================
+Certain Functionality offered in conjunction with the Kaltura CE Video Cluster Software requires integration with 3rd party software or hardware. The table below includes information about such additional functionality, and the possible needed customization to customer’s need.
 
-Features that require add-on server components which are not provided for CE integration
-========================================================================================
-- Remix download - flattening server
-- Doc conversion/PPT-Video widget 
-- Silvelight player/smooth streaming
+
+
+- Akamai HD Network& Apple HTTP Streaming - requires content delivery through Akamai - Akamai CDN account             
+
+- Analytics – for capturing CDN bandwidth usage- CDN logs integration is needed (already integrated with CDN logs of Akamai, limelight, level3) - requires CDN account
+
+- RTMP delivery or adaptive bit rate delivery - requires CDN/FMS integration                                                   
+
+- User geo-distribution analytics and/or access - requires ip2location DB license control                                              
+
+- Side by side Video and PowerPoint - Ability to show a dual head display for (example) interactive lectures where the viewer can skip between slides and the video will seek to the correct spot automatically. Custom work including setting up A server incl. license and addition of required conversion flavors - Microsoft 2008 server (See appendix: Microsoft document server requirements)This feature is provided only in the OnPrem version of the Kaltura video cluster
+
+- Webcam recorder widget - Allows users to record webcam, and add metadata. Requires integration with the customers FMS (for example FMS/Adobe/Wowza/Red5) - If FMS – must be FMS Interactive server v3.5 only 
+
+- HTTPS encryption for Login - Requires the creation of an HTTPS certificate by the customer and an Integration efforts - Can either install certificates on the load balancer or install directly on the servers.  
+
+- SSO Integration - Integration with an external authentication server, to enable external user management and access to already logged in users - Prerequisite: details of the authentication server. 
+
+- RTMP from FMS - Just for delivering video on demand. For Red5/Wowza/FMS Dependent on a discovery effort.
+
+- In Video search - Be able to search across all videos in your system using Kaltura API and indexing of video captions - Requires designing and coding a search page.
+
+- Live Streaming - Live streaming using a different media server than the included Akamai - Akamai – configuration only
+Wowza or any other CDN– requires a specific integration project.
+
+- Localization of KMC - A translation of all KMC strings, providing a localized experience for the Kaltura management console - Requires a translator to go over all emails and KMC texts. Providing Kaltura with the translated content.This feature is provided only in the OnPrem version of the Kaltura video cluster.
+
+- Custom player skins - Customize the look, feel and functionality of the Kaltura player - Requires graphic design which can be provided by Kaltura This feature is provided only in the OnPrem version of the Kaltura video cluster.
 
 
 Known Issues
 ============
-- Kaltura CE should run as a Virtual Host under Apache2
-- Kaltura does not provide a complete migration path from CE 1.5 and older. Migration instruction from Kaltura CE 2.0.x to Kaltura CE 3.0 will be provided.
-- The links within the KMC 'Quick Start Guide' PDF are pointing to the KMC hosted by Kaltura at www.kaltura.com and not to the local Kaltura CE
-- Incomplete testing of Kaltura CMS/LMS extensions (WP,Drupal ,Joomla, Moodle ) with Kaltura CE v3.0 Beta version - to be finalized on official release 
 
------------------------------------------------------------------------------------------------------------------
+Q1290 - Switching to full screen mode while displaying an overlay ad can cause the overlay ad, in certain conditions, to disappear. 
+
+Q1291 - Switching to full screen while displaying a post-roll or a mid-roll overlay ad causes the ad to visibly float to the correct position, instead of immediately reappearing in the correct position. 	
+
+Q1293 - baseEntry->add “type” parameters is deprecated in the API:
+In the API, the baseEntry->add type parameter is now deprecated and will be ignored. This is due to a change of behavior causing the type of the entry to be defined using the parameter “entry_type”. 
+
+Q1294 - Different behaviors for auto-moderation, depending on which API is used: 
+When a partner is set with "auto moderation" and a new playlist is added:
+1. If the playlist is added through "baseEntry->add" API action - it will be auto moderated.
+2. If the playlist is added through "playlist->add" API action - it will NOT be auto moderated.
+
+Q1311 - Pausing, then resizing the player does not immediately resize the captions: 
+When playing video with captions, clicking pause and changing the screen mode does not trigger a captions resize according to the new screen size.
+When pressing Play, the captions are correctly resized.
+
 Get Assistance
 **************
 The KalturaCE is a community-supported open source project. The best place to get help is in our Community Forums at http://kaltura.org/forums/kaltura-server-community-edition-forums 

@@ -1,7 +1,7 @@
 
 Pre-Installation Considerations
 ********************************
-Please note the following considerations before setting up your Kaltura On-Prem 3.0
+Please note the following considerations before setting up your Kaltura On-Prem 5.0
 
 Virtual Host Setup
 ==================
@@ -18,7 +18,7 @@ The current version of the Kaltura ON-Prem supports both PHP 5.3 and PHP 5.2
 
 prerequisites
 **************
-The following prerequisites are required for installing and for running the Kaltura On-Prem V3.0 on a Linux server
+The following prerequisites are required for installing and for running the Kaltura On-Prem V5.0 on a Linux server
 
 Hardware specifications
 ========================
@@ -39,18 +39,20 @@ PHP
 -PHP 5.2.x/PHP 5.3.x are supported. 
 -Both php and php-cli must be present.
 -The following php extensions should be included and enabled:
-Gd, Curl, Memcache, Mysql, Mysqli, Exif, ftp, iconv, json, Session, apc, spl, DOM, SimpleXML, xml, xsl, imap, ctype
+Gd, Curl, Memcache, Mysql, Mysqli, Exif, ftp, iconv, json, Session, apc, spl, DOM, SimpleXML, xml, xsl, ctype
 -Verify that the following settings within the php.ini file on each server:
 For PHP 5.3:  Verify that request_order parameter includes C, G and P (recommended: "CGP")
 For PHP 5.2:  Verify that variables_order parameter in php.ini includes C, G and P
-
+Please verify that date.timezone parameter was set to the right timezone.
 
 MySQL
 ======
 MySQL 5.1.37 or higher
+Please verify that mysql server character set is UTF8
 The following lines should be added to the MySQL my.cnf file:
 lower_case_table_names = 1
 thread_stack = 262144
+open_files_limit = 20000
 MySQL should be restarted after this adjustment is made
 
 curl
@@ -60,6 +62,10 @@ Should be installed
 memcached 
 ==========
 Should be installed 
+
+ImageMagick
+============
+Should be installed
 
 32-bit packages required on 64-bit servers
 ===========================================
@@ -88,7 +94,7 @@ Mail server
 ===========
 A mail server is needed for managing outgoing emails as part of the kaltura platform workflow.  Suggested packages:  Sendmail,  postfix
 
-Xymon/Hobbit 4.2.3 (optional)
+Xymon/Hobbit 4.3.7 (optional)
 =============================
 This is an open source system monitoring package required for the Kaltura admin console's out-of-the-box monitoring dashboard and alert system. 
 
@@ -97,6 +103,7 @@ Disabled SELinux (When applicable on server)
 Kaltura On-Prem cannot run when the Security-Enhanced Linux (SELinux) feature is deployed and enabled. If the SELinux feature is deployed on your server you must disable it for being able to use Kaltura On-Prem
 Within the /etc/sysconfig/selinux file (if exists on your server) set:
 SELINUX=disabled
+The server should be restarted after this adjustment is made
 
 Set the Kaltura On-Prem domain name/virtual hostname in HOSTS file. (Can be done before/after installation)
 =============================================================================================
@@ -195,22 +202,14 @@ Include {YOUR_KALTURA_BASE_ DIR}/app/configurations/apache/my_kaltura.conf
 - set your Kaltura On-Prem domain name/virtual hostname at your /etc/hosts file
 - Restart your apache server
 
-
-
-
- - Verify that Kaltura’s services are activated on system startup:
-/{YOUR_KALTURA_BASE_ DIR}/app/scripts/searchd.sh start
-/{YOUR_KALTURA_BASE_ DIR}/app/scripts/serviceBatchMgr.sh start
-
-
- - verify that system logrotate script (set in daily crontab in /etc/crontab), is set to run before Kaltura's daily dwh script.
-Kaltura's dwh scheduled daily scripts  are:
-/{YOUR_KALTURA_BASE_ DIR}/dwh/etlsource/execute/etl_logs.sh
-/{YOUR_KALTURA_BASE_ DIR}/dwh/etlsource/execute/daily.sh
-
-their execution schedule is set in:
-/{YOUR_KALTURA_BASE_ DIR}/crontab/kaltura_crontab
-
+The following services should be setup to run at boot time (system startup) for Kaltura to be functional immediately after startup:
+- Apache 
+- MySql
+- Memcached
+- Sphinx – /etc/init.d/sphinx_watch.sh
+- Batch Manager - /{YOUR_KALTURA_BASE_ DIR}/app/scripts/serviceBatchMgr.sh restart. There is a watch script (/{YOUR_KALTURA_BASE_ DIR}/app/scripts/watch.batchMgr.sh) that runs as cron every 30 minutes)
+- Sphinx - /{YOUR_KALTURA_BASE_ DIR}/app/scripts/sphinx_watch.sh start
+- Sphinx Populate - /{YOUR_KALTURA_BASE_ DIR}/app/plugins/sphinx_search/scripts/populateFromLog.php. There is a watch script (/{YOUR_KALTURA_BASE_ DIR}/app/plugins/sphinx_search/scripts/watch.populate.sh) that runs as cron every minutes)
 
 
 

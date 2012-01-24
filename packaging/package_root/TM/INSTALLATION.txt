@@ -86,7 +86,7 @@ Pentaho 3.2
 This is an open source data integration package, required for the video analytics module The data-integration package should be downloaded and installed within the /usr/local/pentaho/pdi directory
 i.e.
 - Create the /usr/local/pentaho/ directory
-- Download and extract the pentaho data-integration package into the /usr/local/pentaho/ - package is available at: http://sourceforge.net/projects/pentaho/files/Data%20Integration/3.2.0-s...
+- Download and extract the pentaho data-integration package into the /usr/local/pentaho/ - package is available at: http://sourceforge.net/projects/pentaho/files/Data%20Integration/3.2.0-stable/pdi-ce-3.2.0-stable.tar.gz/download
 - Rename the data-integration root directory of the downloaded package into the pdi directory
 
 

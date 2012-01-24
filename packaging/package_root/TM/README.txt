@@ -55,8 +55,8 @@ Certain Functionality offered in conjunction with the Kaltura On-Prem Video Clus
 
 - In Video search - Be able to search across all videos in your system using Kaltura API and indexing of video captions - Requires designing and coding a search page.
 
-- Live Streaming - Live streaming using a different media server than the included Akamai - Akamai – configuration only
-Wowza or any other CDN– requires a specific integration project.
+- Live Streaming - Live streaming using a different media server than the included Akamai - Akamai - configuration only
+Wowza or any other CDN - requires a specific integration project.
 
 - Localization of KMC - A translation of all KMC strings, providing a localized experience for the Kaltura management console - Requires a translator to go over all emails and KMC texts. Providing Kaltura with the translated content.
 
@@ -71,8 +71,8 @@ Q1290 - Switching to full screen mode while displaying an overlay ad can cause t
 
 Q1291 - Switching to full screen while displaying a post-roll or a mid-roll overlay ad causes the ad to visibly float to the correct position, instead of immediately reappearing in the correct position. 	
 
-Q1293 - baseEntry->add “type” parameters is deprecated in the API:
-In the API, the baseEntry->add type parameter is now deprecated and will be ignored. This is due to a change of behavior causing the type of the entry to be defined using the parameter “entry_type”. 
+Q1293 - baseEntry->add "type" parameters is deprecated in the API:
+In the API, the baseEntry->add type parameter is now deprecated and will be ignored. This is due to a change of behavior causing the type of the entry to be defined using the parameter "entry_type". 
 
 Q1294 - Different behaviors for auto-moderation, depending on which API is used: 
 When a partner is set with "auto moderation" and a new playlist is added:

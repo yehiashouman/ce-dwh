@@ -1,2 +1,2 @@
 00 * * * * root @DWH_DIR@/etlsource/execute/etl_hourly.sh -p @DWH_DIR@
-59 0,4,8,12,16,20 root @DWH_DIR@/dwh/etlsource/execute/etl_daily.sh -p @DWH_DIR@
+59 0,4,8,12,16,20 root @DWH_DIR@/etlsource/execute/etl_daily.sh -p @DWH_DIR@

@@ -20,7 +20,7 @@ The following list includes the main new features and infrastructure changes tha
 - Upload Control - manage and control your uploads, set priorities, track progress, and continue working in the KMC while your uploads continue processing in the background. 
 - In Video Search - use Kaltura's new "In Video Search" API to search for a specific phrase within a library of videos and find the exact point in the video where the phrase appears. 
 - Multi Lingual Captions - upload caption files directly into the KMC in different languages and formats. Allow users to select their preferred language and caption setting.
-- Clipping and Trimming - create clips from existing videos, set in and out points - each clip becomes its own media entry encoded to multiple flavors, and can be downloaded, distributed and played back on any device. You can also simply trim the length of a video – all directly from within the KMC.
+- Clipping and Trimming - create clips from existing videos, set in and out points - each clip becomes its own media entry encoded to multiple flavors, and can be downloaded, distributed and played back on any device. You can also simply trim the length of a video - all directly from within the KMC.
 - Advertising - insert cue-point and add mid-roll and overlay ads in any video.
 - Metadata Improvements and Related Files - manage multiple metadata schemas and append related documents to media entries.
 - Advanced Ingestion Capabilities - control the order of ingestion, create "Draft Entries" with metadata and attach the video later

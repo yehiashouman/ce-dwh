@@ -13,18 +13,17 @@ While it is possible to install Kaltura On-Prem on other Linux distributions and
 
 New Features and Functionalities
 ================================
-The following list includes the main new features and infrastructure changes that are available as part of the release. For more information, please refer to the packaged KMC Guide or to the Kaltura On-Prem documentation pages within kaltura.org or the “what’s new in Eagle” document at http://blog.kaltura.org/wp-content/uploads/2011/09/Kaltura-Eagle-Release-Whats-New.pdf
+The following list includes the main new features and infrastructure changes that are available as part of the release. For more information, please refer to the packaged KMC Guide or to the Kaltura On-Prem documentation pages within kaltura.org or the "what's new in Eagle" document at http://blog.kaltura.org/wp-content/uploads/2011/09/Kaltura-Eagle-Release-Whats-New.pdf
 
-- New Upload Tab – upload and prepare media entries directly from the main KMC menu regardless of what page you’re working on. 
-- Upload Control – manage and control your uploads, set priorities, track progress, and continue working in the KMC while your uploads continue processing in the background. 
-- In Video Search – use Kaltura’s new “In Video Search” API to search for a specific phrase within a library of videos and find the exact point in the video where the phrase appears. 
+- New Upload Tab - upload and prepare media entries directly from the main KMC menu regardless of what page you're working on. 
+- Upload Control - manage and control your uploads, set priorities, track progress, and continue working in the KMC while your uploads continue processing in the background. 
+- In Video Search - use Kaltura's new "In Video Search" API to search for a specific phrase within a library of videos and find the exact point in the video where the phrase appears. 
 - Multi Lingual Captions - upload caption files directly into the KMC in different languages and formats. Allow users to select their preferred language and caption setting.
-- Clipping and Trimming – create clips from existing videos, set in and out points – each clip becomes its own media entry encoded to multiple flavors, and can be downloaded, distributed and played back on any device. You can also simply trim the length of a video – all directly from within the KMC.
-- Advertising – insert cue-point and add mid-roll and overlay ads in any video.
-- Metadata Improvements and Related Files – manage multiple metadata schemas and append related documents to media entries.
-- Advanced Ingestion Capabilities –
-- Control the order of ingestion, create “Draft Entries” with metadata and attach the video later
-- Use your own transcoders, and ingest the output flavors to Kaltura
+- Clipping and Trimming - create clips from existing videos, set in and out points - each clip becomes its own media entry encoded to multiple flavors, and can be downloaded, distributed and played back on any device. You can also simply trim the length of a video – all directly from within the KMC.
+- Advertising - insert cue-point and add mid-roll and overlay ads in any video.
+- Metadata Improvements and Related Files - manage multiple metadata schemas and append related documents to media entries.
+- Advanced Ingestion Capabilities - control the order of ingestion, create "Draft Entries" with metadata and attach the video later.
+- Use your own transcoders, and ingest the output flavors to Kaltura.
 - Host videos at your preferred location and link to Kaltura
 - Automate content ingestion using Drop Folders
 - Seamlessly replace video assets for a Kaltura entry, media is replaced in all live and syndicated players
@@ -34,11 +33,11 @@ The following list includes the main new features and infrastructure changes tha
 		
 Features that require additional setup/3rd party licensing/CDN capabilities
 ============================================================================
-Certain Functionality offered in conjunction with the Kaltura CE Video Cluster Software requires integration with 3rd party software or hardware. The table below includes information about such additional functionality, and the possible needed customization to customer’s need.
+Certain Functionality offered in conjunction with the Kaltura On-Prem Video Cluster Software requires integration with 3rd party software or hardware. The table below includes information about such additional functionality, and the possible needed customization to customer's need.
 
 - Akamai HD Network& Apple HTTP Streaming - requires content delivery through Akamai - Akamai CDN account
 
-- Analytics – for capturing CDN bandwidth usage- CDN logs integration is needed (already integrated with CDN logs of Akamai, limelight, level3) - requires CDN account
+- Analytics - for capturing CDN bandwidth usage- CDN logs integration is needed (already integrated with CDN logs of Akamai, limelight, level3) - requires CDN account
 
 - RTMP delivery or adaptive bit rate delivery - requires CDN/FMS integration                                                   
 
@@ -46,7 +45,7 @@ Certain Functionality offered in conjunction with the Kaltura CE Video Cluster S
 
 - Side by side Video and PowerPoint - Ability to show a dual head display for (example) interactive lectures where the viewer can skip between slides and the video will seek to the correct spot automatically. Custom work including setting up A server incl. license and addition of required conversion flavors - Microsoft 2008 server (See appendix: Microsoft document server requirements)
 
-- Webcam recorder widget - Allows users to record webcam, and add metadata. Requires integration with the customers FMS (for example FMS/Adobe/Wowza/Red5) - If FMS – must be FMS Interactive server v3.5 only 
+- Webcam recorder widget - Allows users to record webcam, and add metadata. Requires integration with the customers FMS (for example FMS/Adobe/Wowza/Red5) - If FMS - must be FMS Interactive server v3.5 only 
 
 - HTTPS encryption for Login - Requires the creation of an HTTPS certificate by the customer and an Integration efforts - Can either install certificates on the load balancer or install directly on the servers.  
 

@@ -24,9 +24,9 @@ Hardware specifications
 ========================
 Hardware resources should be set according to usage estimations. 
 Minimal requirements:
-•	1GB RAM
-•	2 CPUs
-•	Storage  hard-drive – according to storage needs
+- 1GB RAM
+- 2 CPUs
+- Storage  hard-drive - according to storage needs
 
 
 Apache
@@ -162,7 +162,7 @@ A password to set for admin console administrator
 ==================================================
 This is the password to your system administrator for logging into the Kaltura admin console.
 
-The URL to your xymon - system monitoring – service (optional)
+The URL to your xymon - system monitoring - service (optional)
 ===============================================================
 If you installed the xymon monitoring service prior to running the Kaltura installation script, you can provide the xymon service URL, so it will be auto-configured to become part of your Kaltura On-Prem admin console.
 You can set the xymon service and it's URL also after installation has been completed. Please note that the format of this URL may be different on different Linux distributions:
@@ -194,7 +194,7 @@ At the end of a successful installation you should be prompted with your login c
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
-Post – Installation Configuration
+Post-Installation Configuration
 **********************************
 Upon successfully completing installation, do the following:
  - Open your apache configuration file for editing add the following line
@@ -206,7 +206,7 @@ The following services should be setup to run at boot time (system startup) for 
 - Apache 
 - MySql
 - Memcached
-- Sphinx – /etc/init.d/sphinx_watch.sh
+- Sphinx - /etc/init.d/sphinx_watch.sh
 - Batch Manager - /{YOUR_KALTURA_BASE_ DIR}/app/scripts/serviceBatchMgr.sh restart. There is a watch script (/{YOUR_KALTURA_BASE_ DIR}/app/scripts/watch.batchMgr.sh) that runs as cron every 30 minutes)
 - Sphinx - /{YOUR_KALTURA_BASE_ DIR}/app/scripts/sphinx_watch.sh start
 - Sphinx Populate - /{YOUR_KALTURA_BASE_ DIR}/app/plugins/sphinx_search/scripts/populateFromLog.php. There is a watch script (/{YOUR_KALTURA_BASE_ DIR}/app/plugins/sphinx_search/scripts/watch.populate.sh) that runs as cron every minutes)

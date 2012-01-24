@@ -8,12 +8,12 @@ Supported/Tested OS
 ====================
 Kaltura On-Prem has been tested on the CentOS 6.2/64bit operating system. 
 
-While it is possible to install Kaltura CE on other Linux distributions and on a 32-bit server, these configurations were not tested by Kaltura.
+While it is possible to install Kaltura On-Prem on other Linux distributions and on a 32-bit server, these configurations were not tested by Kaltura.
 
 
 New Features and Functionalities
 ================================
-The following list includes the main new features and infrastructure changes that are available as part of the release. For more information, please refer to the packaged KMC Guide or to the Kaltura CE documentation pages within kaltura.org or the “what’s new in Eagle” document at http://blog.kaltura.org/wp-content/uploads/2011/09/Kaltura-Eagle-Release-Whats-New.pdf
+The following list includes the main new features and infrastructure changes that are available as part of the release. For more information, please refer to the packaged KMC Guide or to the Kaltura On-Prem documentation pages within kaltura.org or the “what’s new in Eagle” document at http://blog.kaltura.org/wp-content/uploads/2011/09/Kaltura-Eagle-Release-Whats-New.pdf
 
 - New Upload Tab – upload and prepare media entries directly from the main KMC menu regardless of what page you’re working on. 
 - Upload Control – manage and control your uploads, set priorities, track progress, and continue working in the KMC while your uploads continue processing in the background. 

@@ -1,0 +1,92 @@
+#!/bin/sh
+
+function get_db_params
+{
+    if [ -n "$1" ];then
+	DONOT_LOG_TO_RC_FILE=1
+    fi 
+    echo "************MySQL settings************"
+    echo "MySQL hostname [localhost]:"
+    read DB1_HOST
+    if [ -z "$DB1_HOST" ];then
+	    DB1_HOST="localhost"
+    fi
+    echo "MySQL port [3306]:"
+    read MYSQL_PORT
+    if [ -z "$MYSQL_PORT" ];then
+	    MYSQL_PORT="3306"
+    fi
+    echo -e "MySQL super user [root]:\nNOTE: this user will only be used in order to create Kaltura's user and scheme in your database\n"
+    read DB1_USER
+    if [ -z "$DB1_USER" ];then
+	    DB1_USER="root"
+    fi
+    echo "Passwd for $DB1_USER:"
+    read DB1_PASS
+    if [ -z "$DONOT_LOG_TO_RC_FILE" ];then
+	echo -e "DB1_HOST=$DB1_HOST\nDB1_PORT=$DB1_PORT\nDB1_USER=$DB_USER\nDB1_PASS=$DB1_PASS\n" >> $RC_FILE
+    fi
+}
+
+function get_admin_console_params
+{
+    echo "************Admin Console settings************"
+    echo "Admin's email address:"
+    read ADMIN_CONSOLE_ADMIN_MAIL
+    echo "Admin's passwd:"
+    read ADMIN_CONSOLE_PASSWORD
+    echo -e "ADMIN_CONSOLE_ADMIN_MAIL=$ADMIN_CONSOLE_ADMIN_MAIL\nADMIN_CONSOLE_PASSWORD=$ADMIN_CONSOLE_PASSWORD\n" >> $RC_FILE
+}
+
+function get_vhost_params
+{
+    echo "************Apache Vhost settings************"
+    echo "Desired Vhost name for $PRODUCT:"
+    read KAL_VHOST
+    echo "Desired port for $KAL_VHOST"
+    read KAL_PORT
+    echo -e "KAL_VHOST=$KAL_VHOST\nKAL_PORT=$KAL_PORT" >> $RC_FILE
+}
+
+function get_php_settings
+{
+    echo "Path to php.ini:"
+    read PHP_INI_PATH
+    TZ_FROM_INI=`grep "^time_zone\s*="|awk -F "=" '{print $2}' $PHP_INI_PATH`
+    if [ -z "$TZ_FROM_INI" ];then
+	echo "The directive time_zone is not set in the INI file you provided.\nPerhaps you have it in another include file but if not, please set it.\n"
+	echo "Time zone:"
+    else
+	echo "Time zone: ["$TZ_FROM_INI"]"
+    fi
+    read TIME_ZONE
+    if [ -z "$TIME_ZONE" ];then
+	TIME_ZONE=$TZ_FROM_INI
+    fi
+    echo -e "TZ_FROM_INI=$TZ_FROM_INI\nTIME_ZONE=$TIME_ZONE\n" >>$RC_FILE
+}
+
+function setup_sphinx_server
+{
+    #chkconfig
+    cd $PREFIX/app/deployment/base/scripts
+    for i in populateSphinxCuePoints.php populateSphinxEntries.php populateSphinxEntryDistributions.php configureSphinx.php;do
+	php $i
+    done
+    cd -
+}
+
+function setup_batch_server
+{
+
+}
+
+function setup_dwh
+{
+
+}
+
+function set_mysql_params
+{
+
+}

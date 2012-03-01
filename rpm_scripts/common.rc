@@ -16,13 +16,16 @@ function get_db_params
     if [ -z "$MYSQL_PORT" ];then
 	    MYSQL_PORT="3306"
     fi
-    echo -e "MySQL super user [root]:\nNOTE: this user will only be used in order to create Kaltura's user and scheme in your database\n"
+    echo -e "MySQL super user [root]:\nNOTE: this user will only be used in order to create Kaltura's user and scheme in your database.\n"
     read DB1_USER
     if [ -z "$DB1_USER" ];then
 	    DB1_USER="root"
     fi
     echo "Passwd for $DB1_USER:"
+    CUR_STTY=`stty -g`
+    stty -echo
     read DB1_PASS
+    stty $CUR_STTY
     if [ -z "$DONOT_LOG_TO_RC_FILE" ];then
 	echo -e "DB1_HOST=$DB1_HOST\nDB1_PORT=$DB1_PORT\nDB1_USER=$DB_USER\nDB1_PASS=$DB1_PASS\n" >> $RC_FILE
     fi
@@ -78,15 +81,15 @@ function setup_sphinx_server
 
 function setup_batch_server
 {
-
+	echo setup_batch_server
 }
 
 function setup_dwh
 {
-
+	echo setup_dwh
 }
 
 function set_mysql_params
 {
-
+	echo set_mysql_params
 }

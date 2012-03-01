@@ -115,7 +115,7 @@ else
     echo -e "${SETCOLOR_SUCCESS}OK: there's a listener on $SPH_PORT.$SETCOLOR_NORMAL"
 fi
 
-for BIN in rsync curl aaa;do
+for BIN in rsync curl;do
     echo "Is $BIN executable...?"
     which $BIN
     if [ $? -eq 0 ];then

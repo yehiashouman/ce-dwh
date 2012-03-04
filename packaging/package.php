@@ -123,6 +123,9 @@ echo "Manipulated ui confs\n";
 // delete windows binaries (we currently do not support windows installation
 recursive_remove_directory($base_dir . 'package/bin/windows');
 
+// strip all binaries in package/bin/linux directory
+exec("find " . $base_dir . 'package/bin/linux' . ' -type f -exec strip {} \;');
+
 echo "Finished successfully\n";
 die(0);
 

@@ -1,68 +1,126 @@
 #!/bin/sh
 
+PRODUCT="Kaltura's platform"
+PRODUCT_VERSION=5.0.0
+RC_FILE=/etc/kaltura.rc
+KCONF_TMPL=$PREFIX/app/alpha/config/kConfLocal.php.template
+SETCOLOR_SUCCESS="\\033[1;32m"
+SETCOLOR_HEADERS="\\033[1;34m"
+SETCOLOR_FAILURE="\\033[1;31m"
+SETCOLOR_WARNING="\\033[1;33m"
+SETCOLOR_NORMAL="\\033[0;39m"
+
+function back_up_kalt_rc
+{
+    if [ -f $RC_FILE ];then
+	mv $RC_FILE $RC_FILE.`date +%d_%m_%y_%h_%m`
+    fi
+}
 function get_db_params
 {
     if [ -n "$1" ];then
 	DONOT_LOG_TO_RC_FILE=1
     fi 
-    echo "************MySQL settings************"
+    echo -e "\n${SETCOLOR_HEADERS}************MySQL settings************${SETCOLOR_NORMAL}"
     echo "MySQL hostname [localhost]:"
-    read DB1_HOST
+    read -e DB1_HOST
     if [ -z "$DB1_HOST" ];then
 	    DB1_HOST="localhost"
     fi
     echo "MySQL port [3306]:"
-    read MYSQL_PORT
-    if [ -z "$MYSQL_PORT" ];then
-	    MYSQL_PORT="3306"
+    read -e DB1_PORT
+    if [ -z "$DB1_PORT" ];then
+	    DB1_PORT="3306"
     fi
     echo -e "MySQL super user [root]:\nNOTE: this user will only be used in order to create Kaltura's user and scheme in your database.\n"
-    read DB1_USER
+    read -e DB1_USER
     if [ -z "$DB1_USER" ];then
 	    DB1_USER="root"
     fi
     echo "Passwd for $DB1_USER:"
     CUR_STTY=`stty -g`
     stty -echo
-    read DB1_PASS
+    read -e DB1_PASS
     stty $CUR_STTY
+    MYSQL_CONN_STRING="--connect_timeout=5 -h$DB1_HOST -P$DB1_PORT -u$DB1_USER"
+    if [ -n "$DB1_PASS" ];then
+	MYSQL_CONN_STRING="$MYSQL_CONN_STRING -p$DB1_PASS"
+    fi
+    MYSQLBIN=`which mysql`
+    echo "Path to mysql client binary [$MYSQLBIN]:"
+    read -e MYSQL_BIN
+    if [ -z "$MYSQL_BIN" -a -x $MYSQLBIN ];then
+	MYSQL_BIN=$MYSQLBIN
+    fi
+    echo "show databases;" | $MYSQL_BIN $MYSQL_CONN_STRING
+    if [ $? -ne 0 ];then
+	echo -e "\n${SETCOLOR_FAILURE}ERROR: Couldn't connect to MySQL, command was: $MYSQL_BIN $MYSQL_CONN_STRING.$SETCOLOR_NORMAL"
+    else
+	echo -e "\n${SETCOLOR_SUCCESS}OK: Connected to $DB1_HOST:$MYSQL_PORT.$SETCOLOR_NORMAL"
+    fi
     if [ -z "$DONOT_LOG_TO_RC_FILE" ];then
-	echo -e "DB1_HOST=$DB1_HOST\nDB1_PORT=$DB1_PORT\nDB1_USER=$DB_USER\nDB1_PASS=$DB1_PASS\n" >> $RC_FILE
+	echo -e "DB1_HOST=$DB1_HOST\nDB1_PORT=$DB1_PORT\nDB1_USER=$DB1_USER\nDB1_PASS=$DB1_PASS\n" >> $RC_FILE
     fi
 }
 
 function get_admin_console_params
 {
-    echo "************Admin Console settings************"
+    echo -e "\n${SETCOLOR_HEADERS}************Admin Console settings************${SETCOLOR_NORMAL}"
     echo "Admin's email address:"
-    read ADMIN_CONSOLE_ADMIN_MAIL
+    read -e ADMIN_CONSOLE_ADMIN_MAIL
     echo "Admin's passwd:"
-    read ADMIN_CONSOLE_PASSWORD
+    CUR_STTY=`stty -g`
+    stty -echo
+    read -e ADMIN_CONSOLE_PASSWORD
+    stty $CUR_STTY
     echo -e "ADMIN_CONSOLE_ADMIN_MAIL=$ADMIN_CONSOLE_ADMIN_MAIL\nADMIN_CONSOLE_PASSWORD=$ADMIN_CONSOLE_PASSWORD\n" >> $RC_FILE
 }
 
-function get_vhost_params
+function get_apachectl
 {
-    echo "************Apache Vhost settings************"
+    APACHECTL=`which apachectl 2>/dev/null`
+    echo "Path to apachectl binary ["$APACHECTL"]:"
+    read -e APACHE_CTL
+    if [ -z "$APACHE_CTL" -a -x $APACHECTL ];then
+	APACHE_CTL=$APACHECTL
+    fi
+}
+function handle_vhost_params
+{
+    if [ -z "$APACHE_CTL" ];then
+	get_apachectl
+    fi
+    KALTURA_APACH_CONFFILE=/etc/httpd/conf.d/kaltura.conf
+    echo -e "\n${SETCOLOR_HEADERS}************Apache Vhost settings************${SETCOLOR_NORMAL}"
     echo "Desired Vhost name for $PRODUCT:"
-    read KAL_VHOST
-    echo "Desired port for $KAL_VHOST"
-    read KAL_PORT
+    read -e KAL_VHOST
+    echo "Desired port for $KAL_VHOST:"
+    read -e KAL_PORT
+    while $APACHE_CTL -t -D DUMP_VHOSTS 2>/dev/null|grep -w "$KAL_VHOST";do
+	echo "This vhost is already defined somewhere else in the Apache configuration."
+	echo "Desired Vhost name for $PRODUCT:"
+	read -e KAL_VHOST
+	echo "Desired port for $KAL_VHOST:"
+	read -e KAL_PORT
+    done
     echo -e "KAL_VHOST=$KAL_VHOST\nKAL_PORT=$KAL_PORT" >> $RC_FILE
+    sed -e s#@@VHOST_PORT@@#$KAL_PORT# -e s#@@VHOST_NAME@@#$KAL_VHOST# $KALTURA_APACH_CONFFILE.tmpl > $KALTURA_APACH_CONFFILE
+    #sed -e $KCONF_TMPL 
 }
 
 function get_php_settings
 {
+    echo -e "\n${SETCOLOR_HEADERS}************PHP settings************${SETCOLOR_NORMAL}"
     echo "Path to php.ini:"
-    read PHP_INI_PATH
-    TZ_FROM_INI=`grep "^time_zone\s*="|awk -F "=" '{print $2}' $PHP_INI_PATH`
+    read -e PHP_INI_PATH
+    TZ_FROM_INI=`grep "^date.timezone\s*" $PHP_INI_PATH|awk -F "=" '{print $2}'`
     if [ -z "$TZ_FROM_INI" ];then
-	echo "The directive time_zone is not set in the INI file you provided.\nPerhaps you have it in another include file but if not, please set it.\n"
+	echo -e "The directive time_zone is not set in the INI file you provided.\nPerhaps you have it in another include file but if not, please set it."
 	echo "Time zone:"
     else
 	echo "Time zone: ["$TZ_FROM_INI"]"
     fi
-    read TIME_ZONE
+    read -e TIME_ZONE
     if [ -z "$TIME_ZONE" ];then
 	TIME_ZONE=$TZ_FROM_INI
     fi
@@ -71,12 +129,26 @@ function get_php_settings
 
 function setup_sphinx_server
 {
-    #chkconfig
+    #chkconfig 
     cd $PREFIX/app/deployment/base/scripts
     for i in populateSphinxCuePoints.php populateSphinxEntries.php populateSphinxEntryDistributions.php configureSphinx.php;do
 	php $i
     done
     cd -
+}
+
+function generate_ui
+{
+
+    cd $PREFIX/app/deployment/uiconf 
+    php deploy_v2.php --ini=$PREFIX/web/flash/kmc/v4.2.14.9/config.ini 1>/dev/null
+
+}
+
+function generate_api
+{
+
+    cd $PREFIX/app/generator && ./generate.sh 1> /dev/null
 }
 
 function setup_batch_server

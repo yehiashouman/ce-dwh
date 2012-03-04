@@ -15,10 +15,6 @@
 
 #set -o nounset                              # Treat unset variables as an error
 
-SETCOLOR_SUCCESS="\\033[1;32m"
-SETCOLOR_FAILURE="\\033[1;31m"
-SETCOLOR_WARNING="\\033[1;33m"
-SETCOLOR_NORMAL="\\033[0;39m"
 TMPDIR=/tmp/`basename $0`_$$
 mkdir -p $TMPDIR
 
@@ -56,12 +52,7 @@ done
     
 
 echo -e "********Apache Configuration********\n"
-APACHECTL=`which apachectl 2>/dev/null`
-echo "Path to apachectl binary ["$APACHECTL"]:"
-read -e APACHE_CTL
-if [ -z "$APACHE_CTL" -a -x $APACHECTL ];then
-    APACHE_CTL=$APACHECTL
-fi
+get_apachectl
 $APACHE_CTL -t -D DUMP_MODULES >"$TMPDIR/apache_modules"
 for MODULE in rewrite headers expires filter deflate file_cache env proxy;do
     if ! `grep -qi $MODULE $TMPDIR/apache_modules`;then
@@ -81,7 +72,7 @@ if [ -z "$MYSQL_BIN" -a -x $MYSQLBIN ];then
 fi
 get_db_params NO_LOG
 
-MYSQL_CONN_STRING="--connect_timeout=5 -h$DB1_HOST -P$MYSQL_PORT -u$DB1_USER"
+MYSQL_CONN_STRING="--connect_timeout=5 -h$DB1_HOST -P$DB1_PORT -u$DB1_USER"
 if [ -n "$DB1_PASS" ];then
     MYSQL_CONN_STRING="$MYSQL_CONN_STRING -p$DB1_PASS"
 fi
@@ -115,7 +106,7 @@ else
     echo -e "${SETCOLOR_SUCCESS}OK: there's a listener on $SPH_PORT.$SETCOLOR_NORMAL"
 fi
 
-for BIN in rsync curl;do
+for BIN in rsync curl aaa;do
     echo "Is $BIN executable...?"
     which $BIN
     if [ $? -eq 0 ];then
@@ -124,3 +115,4 @@ for BIN in rsync curl;do
 	echo -e "${SETCOLOR_FAILURE}ERROR: I couldn't find $BIN.$SETCOLOR_NORMAL"
     fi
 done
+rm -rf $TMPDIR

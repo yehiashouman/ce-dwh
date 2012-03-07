@@ -32,6 +32,8 @@ if [ -r $RC_FILE ];then
 #else
 #    echo "Couldn't find $RC_FILE. Aborting."
 fi
+echo "PREFIX=$PREFIX" > $RC_FILE
+echo "PRODUCT_VERSION=$PRODUCT_VERSION" >> $RC_FILE
 
 (cat << EOF
 Welcome to $PRODUCT $VERSION post installation script!

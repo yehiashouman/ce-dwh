@@ -1,8 +1,7 @@
 #!/bin/sh
 
-PRODUCT="Kaltura's platform"
-PRODUCT_VERSION=5.0.0
 RC_FILE=/etc/kaltura.rc
+
 KCONF_TMPL=$PREFIX/app/alpha/config/kConfLocal.php.template
 SETCOLOR_SUCCESS="\\033[1;32m"
 SETCOLOR_HEADERS="\\033[1;34m"
@@ -41,6 +40,11 @@ function get_db_params
     CUR_STTY=`stty -g`
     stty -echo
     read -e DB1_PASS
+    stty $CUR_STTY
+    echo "Passwd for db user 'kaltura':"
+    CUR_STTY=`stty -g`
+    stty -echo
+    read -e KALT_PASSWD
     stty $CUR_STTY
     MYSQL_CONN_STRING="--connect_timeout=5 -h$DB1_HOST -P$DB1_PORT -u$DB1_USER"
     if [ -n "$DB1_PASS" ];then
@@ -161,7 +165,27 @@ function setup_dwh
 	echo setup_dwh
 }
 
-function set_mysql_params
+function setup_mysql_server
 {
 	echo set_mysql_params
+	# package/app/app/deployment/final/sql
+	# create DB kaltura and kaltura_sphinx_log
+	# create DB user kaltura with all privileges on kaltura and kaltura_sphinx_log
+	# subs in  
+
+	# @WEB_DIR@ 
+	# @DB1_HOST@ 
+	# @KALTURA_PASSWD@
+	# ADMIN_CONSOLE_KUSER_MAIL
+	# ADMIN_CONSOLE_PARTNER_SECRET
+	# BATCH_KUSER_MAIL
+	# BATCH_PARTNER_SECRET
+	# DC_NAME
+	# DWH_USER
+	# PARTNER_ZERO_SECRET
+	# SYSTEM_USER_ADMIN_EMAIL
+	# TEMPLATE_KUSER_MAIL
+	# TEMPLATE_PARTNER_ALIAS
+	# TEMPLATE_PARTNER_MAIL
+
 }

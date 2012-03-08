@@ -127,8 +127,7 @@ recursive_remove_directory($base_dir . 'package/bin/windows');
 exec("find " . $base_dir . 'package/bin/linux' . ' -type f -exec strip {} \;');
 // handle files committed from Windows.
 exec("find " . $base_dir . 'package/app' . ' -type f -name "*.php" -exec dos2unix {} \;');
-exec("find " . $base_dir . 'package/app' . ' -type f -name "*.ini" -exec dos2unix {} \;');
-exec("find " . $base_dir . 'package/app' . ' -type f -name "*.conf" -exec dos2unix {} \;');
+exec("find " . $base_dir . 'package/app' . ' -type f -name "*template*" -exec dos2unix {} \;');
 
 echo "Finished successfully\n";
 die(0);

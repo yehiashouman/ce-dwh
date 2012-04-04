@@ -95,18 +95,18 @@ if ! `netstat -ltu --numeric-ports | grep -q ":$MEMD_PORT"`;then
 else
     echo -e "${SETCOLOR_SUCCESS}OK: there's a listener on $MEMD_PORT.$SETCOLOR_NORMAL"
 fi
-echo "Shpinx port [9312]:"
+echo "Sphinx port [9312]:"
 read SPH_PORT
 if [ -z "$SPH_PORT" ];then 
     SPH_PORT=9312
 fi
 if ! `netstat -ltu --numeric-ports | grep -q ":$SPH_PORT"`;then
-    echo -e "${SETCOLOR_FAILURE}ERROR: I couldn't find a listener for memcached on port $SPH_PORT.$SETCOLOR_NORMAL"
+    echo -e "${SETCOLOR_SUCCESS}OK: port $SPH_PORT is free.$SETCOLOR_NORMAL"
 else
-    echo -e "${SETCOLOR_SUCCESS}OK: there's a listener on $SPH_PORT.$SETCOLOR_NORMAL"
+    echo -e "${SETCOLOR_FAILURE}ERROR: there's a listener on $SPH_PORT.$SETCOLOR_NORMAL"
 fi
 
-for BIN in rsync curl aaa;do
+for BIN in rsync curl convert java;do
     echo "Is $BIN executable...?"
     which $BIN
     if [ $? -eq 0 ];then

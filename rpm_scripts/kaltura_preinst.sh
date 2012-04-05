@@ -106,7 +106,7 @@ else
     echo -e "${SETCOLOR_FAILURE}ERROR: there's a listener on $SPH_PORT.$SETCOLOR_NORMAL"
 fi
 
-for BIN in rsync curl convert java;do
+for BIN in rsync curl convert wget nmap telnet dig ping java ssh ifconfig emacs mount umount cat head tail less top uptime;do
     echo "Is $BIN executable...?"
     which $BIN
     if [ $? -eq 0 ];then

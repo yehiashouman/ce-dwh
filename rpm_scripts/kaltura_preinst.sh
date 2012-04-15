@@ -44,7 +44,7 @@ else
 	
 fi
 $PHP_CLI -m >> "$TMPDIR/php_modules"
-for EXT in fileinfo bc calander date filter zlib hash mbstring openssl pcre Gd Curl Memcache Mysql Mysqli Exif ftp iconv json Session spl DOM SimpleXML xml xsl imap ctype ssh2 ;do
+for EXT in fileinfo bc calendar date filter zlib hash mbstring openssl pcre Gd Curl Memcache Mysql Mysqli Exif ftp iconv json Session spl DOM SimpleXML xml xsl imap ctype ssh2 ;do
     if ! `grep -qi $EXT $TMPDIR/php_modules`;then
 	echo -e "${SETCOLOR_FAILURE}ERROR: PHP extension: $EXT is not loaded.$SETCOLOR_NORMAL"
     fi

@@ -15,7 +15,7 @@
 
 #set -o nounset                              # Treat unset variables as an error
 RC=0
-for BIN in rsync curl convert wget nmap telnet dig ping java ssh ifconfig mount umount cat head tail less top uptime;do
+for BIN in rsync curl convert wget nmap telnet dig ping java ssh ifconfig mount umount cat head tail less top uptime mail;do
     echo "Is $BIN executable...?"
     which $BIN
     RC=$?

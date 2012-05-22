@@ -19,12 +19,12 @@ $version_ini['outputdir'] = trim($argv[1]);
 $version_ini['preinstalled'] = trim($argv[2]);
 $version_ini['type'] = trim($argv[3]);
 $version_ini['number'] = trim($argv[4]);
-$includeWindowsBinaries = false;
+//$includeWindowsBinaries = false;
 if (count($argv) > 5){
 	$version_ini['beta'] = trim($argv[5]);
-	if((count($argv) > 6) && (strcmp($argv[6],'-w') == 0)){
-		$includeWindowsBinaries = true;
-	}
+//	if((count($argv) > 6) && (strcmp($argv[6],'-w') == 0)){
+//		$includeWindowsBinaries = true;
+//	}
 }
 
 if (strcmp($version_ini['type'], 'CE') != 0 &&  strcmp($version_ini['type'], 'TM') != 0) {
@@ -100,13 +100,11 @@ $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_di
 $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['uiconf'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['dwh'], $manifest['global'], $base_dir);
+$revisions += svn_export_group($manifest['dwh_upgrade'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['html5'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['apps'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['installer'], $manifest['global'], $base_dir);
 $revisions += svn_export_group($manifest['doc'], $manifest['global'], $base_dir);
-
-
-
 $revisions_str = implode(PHP_EOL, $revisions);
 file_put_contents($base_dir . 'package/revisions.ini', $revisions_str);
 
@@ -127,12 +125,12 @@ echo "Manipulated ui confs\n";
 
 
 // delete windows binaries (we currently do not support windows installation
-if($includeWindowsBinaries == true){
-	echo "keep windows binaries\n";
-} else {
-	echo "delete windows binaries\n";
+//if($includeWindowsBinaries == true){
+//	echo "keep windows binaries\n";
+//} else {
+//	echo "delete windows binaries\n";
 	recursive_remove_directory($base_dir . 'package/bin/windows');
-}
+//}
 
 // strip all binaries in package/bin/linux directory
 exec("find " . $base_dir . 'package/bin/linux' . ' -type f -exec strip {} \;');

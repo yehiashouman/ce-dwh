@@ -60,7 +60,7 @@ if (substr($base_dir,0,1) !== '/') {
 // the manifest file will set the directories that will be exported from SVN
 $manifestFileName = 'manifest.ini';
 if(strcmp($version_ini['number'] ,'v0.0.0') == 0) $manifestFileName = 'trunkmanifest.ini';
-if(strcmp($version_ini['number'] ,'v5.0.0') == 0) $manifestFileName = 'eaglemanifest.ini';
+if(strcmp($version_ini['number'] ,'v6.0.0') == 0) $manifestFileName = 'falconmanifest.ini';
 $manifest = parse_ini_file($manifestFileName, true);
 
 mkdir($base_dir, 0777, true);

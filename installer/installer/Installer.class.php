@@ -1,8 +1,8 @@
 <?php
 
 define("FILE_INSTALL_CONFIG", "installer/installation.ini"); // this file contains the definitions of the installation itself
-define("APP_SQL_DIR", "/app/deployment/final/sql/"); // this is the relative directory where the final sql files are
-define("SYMLINK_SEPARATOR", "^"); // this is the separator between the two parts of the symbolic link definition
+define("APP_SQL_DIR", "/app/deployment/final/sql/"); 		 // this is the relative directory where the final sql files are
+define("SYMLINK_SEPARATOR", "^"); 			// this is the separator between the two parts of the symbolic link definition
 
 /*
 * This class handles the installation itself. It has functions for installing and for cleaning up.
@@ -105,7 +105,6 @@ class Installer {
 		
 		}
 		
-		
 		logMessage(L_USER, "Replacing configuration tokens in files");
 		foreach ($this->install_config['token_files'] as $file) {
 			$replace_file = $app->replaceTokensInString($file);
@@ -117,7 +116,6 @@ class Installer {
 		$this->changeDirsAndFilesPermissions($app);
 		
 		$sql_files = parse_ini_file($app->get('BASE_DIR').APP_SQL_DIR.'create_kaltura_db.ini', true);
-
 		logMessage(L_USER, sprintf("Creating and initializing '%s' database", $app->get('DB1_NAME')));
 		if (!DatabaseUtils::createDb($db_params, $app->get('DB1_NAME'))) {
 			return "Failed to create '".$app->get('DB1_NAME')."' database";
@@ -171,6 +169,14 @@ class Installer {
 			return "Failed to create sphinx configuration file (kaltura.conf)";
 		}
 		
+		//HAGAY: add more sphinx scripts from base/scripts
+		logMessage(L_USER, "Create query cache triggers");
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/createQueryCacheTriggers.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+			logMessage(L_INFO, "sphinx Query Cache Triggers created");
+		} else {
+			return "Failed to create QueryCacheTriggers";
+		}
+		
 		logMessage(L_USER, "Populate sphinx tables");
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxEntries.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 				logMessage(L_INFO, "sphinx entries log created");
@@ -187,7 +193,23 @@ class Installer {
 		} else {
 			return "Failed to populate sphinx log from cue points";
 		}
+		
 		//HAGAY: add more sphinx scripts from base/scripts
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxCategories.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+			logMessage(L_INFO, "sphinx Categoriess log created");
+		} else {
+			return "Failed to populate sphinx log from categories";
+		}
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxTags.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+			logMessage(L_INFO, "sphinx tags log created");
+		} else {
+			return "Failed to populate sphinx log from tags";
+		}
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxKusers.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+			logMessage(L_INFO, "sphinx Kusers log created");
+		} else {
+			return "Failed to populate sphinx log from Kusers";
+		}
 		
 //		logMessage(L_USER, "Running sphinx");
 //		if (OsUtils::execute(sprintf("%s/bin/sphinx/searchd --config %s/configurations/sphinx/kaltura.conf", $app->get('BASE_DIR'),$app->get('APP_DIR')))) {
@@ -197,7 +219,6 @@ class Installer {
 //		}
 	
 		$this->changeDirsAndFilesPermissions($app);
-		
 		
 		logMessage(L_USER, "Creating system symbolic links");
 		foreach ($this->install_config['symlinks'] as $slink) {
@@ -212,8 +233,7 @@ class Installer {
 		if (strcasecmp($app->get('KALTURA_VERSION_TYPE'), K_CE_TYPE) == 0) {
 			$app->simMafteach();
 		}
-
-		
+	
 		logMessage(L_USER, "Deploying uiconfs in order to configure the application");
 		foreach ($this->install_config['uiconfs_2'] as $uiconfapp) {
 			$to_deploy = $app->replaceTokensInString($uiconfapp);

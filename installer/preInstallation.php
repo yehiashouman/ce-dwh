@@ -102,6 +102,14 @@ if (!OsUtils::execute("mkdir /opt/kaltura")) {
 	return "\nFailed creating installation directory\n";
 }
 
+// HAGAY: if (!OsUtils::execute("mkdir usr/local/var/data")) {
+logMessage(L_USER, 'create data directory for sphinx');
+logMessage(L_USER, '================================');
+if (!OsUtils::execute("mkdir /opt/kaltura/log/sphinx/data")) {
+	logMessage(L_USER, 'Failed creating /opt/kaltura/log/sphinx/data directory');
+	return "\nFailed creating /opt/kaltura/log/sphinx/data directory\n";
+}
+
 logMessage(L_USER, 'change ownership of installation directory');
 if (!OsUtils::execute("chown -R $kalturaUserName:root /opt/kaltura")) {
 	logMessage(L_USER, 'Failed change ownership of  installation directory');			

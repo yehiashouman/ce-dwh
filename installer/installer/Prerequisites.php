@@ -110,15 +110,15 @@ foreach ($prerequisites_config["binaries"] as $bin) {
 }
 
 // Hagai: Check that SELinux is disabled
-exec("sestatus", $output, $exit_code);
+exec("getenforce", $statusresponse, $exit_code);
+//$prerequisites .= "getenforce returned: ".$statusresponse[0].PHP_EOL;
 if ($exit_code !== 0) {
-	$prerequisites .= "SeStatus not disabled".PHP_EOL;
+	$prerequisites .= "Could not resolve SE-Linux status".PHP_EOL;
+} elseif(!empty($statusresponse[0])) {
+	if(!strcmp($statusresponse[0],'Enforcing')) {
+		$prerequisites .= "SE linux is Enabled, please disable.".PHP_EOL;
+	}
 }
-//elseif ($output) {
-	echo "sestatus returned: ".$output;
-	print "SEstatus output: ".$output;
-	//$prerequisites .= "SeStatus not disabled".PHP_EOL;
-//}
 
 // check pentaho exists
 if (!is_file($prerequisites_config["pentaho_path"])) {

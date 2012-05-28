@@ -101,8 +101,7 @@ class Installer {
 			
 			if (!OsUtils::fullCopy('configure.php', $app->get('BASE_DIR')."/installer/")) {
 				return "Failed to copy configure.php file to targer directory";
-			}
-		
+			}		
 		}
 		
 		logMessage(L_USER, "Replacing configuration tokens in files");
@@ -168,8 +167,8 @@ class Installer {
 		} else {
 			return "Failed to create sphinx configuration file (kaltura.conf)";
 		}
-		
-		//HAGAY: add more sphinx scripts from base/scripts
+			
+		//HAGAY: add more sphinx scripts from base/scripts		
 		logMessage(L_USER, "Create query cache triggers");
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/createQueryCacheTriggers.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 			logMessage(L_INFO, "sphinx Query Cache Triggers created");

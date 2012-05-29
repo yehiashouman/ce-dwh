@@ -17,7 +17,6 @@ for ($i = 1; $i < $argc; $i++) {
     }
 }
 
-
 logMessage(L_USER, 'add user');
 if (OsUtils::execute("useradd $kalturaUserName -g root")) {	
 	logMessage(L_USER, 'create password');
@@ -102,19 +101,27 @@ if (!OsUtils::execute("mkdir /opt/kaltura")) {
 	return "\nFailed creating installation directory\n";
 }
 
-// HAGAY: if (!OsUtils::execute("mkdir usr/local/var/data")) {
-logMessage(L_USER, 'create data directory for sphinx');
-logMessage(L_USER, '================================');
-if (!OsUtils::execute("mkdir /opt/kaltura/log/sphinx/data")) {
-	logMessage(L_USER, 'Failed creating /opt/kaltura/log/sphinx/data directory');
-	return "\nFailed creating /opt/kaltura/log/sphinx/data directory\n";
-}
-
 logMessage(L_USER, 'change ownership of installation directory');
 if (!OsUtils::execute("chown -R $kalturaUserName:root /opt/kaltura")) {
 	logMessage(L_USER, 'Failed change ownership of  installation directory');			
 	return "\nFailed change ownership of installation directory\n";
 }
+
+// HAGAY: if (!OsUtils::execute("mkdir usr/local/var/data")) {
+/*logMessage(L_USER, 'create data directory for sphinx');
+logMessage(L_USER, '================================');
+if (!OsUtils::execute("mkdir /opt/kaltura/log")) {
+	logMessage(L_USER, 'Failed creating /opt/kaltura/log');
+	return "\nFailed creating /opt/kaltura/log directory\n";
+}
+if (!OsUtils::execute("mkdir /opt/kaltura/log/sphinx")) {
+	logMessage(L_USER, 'Failed creating /opt/kaltura/log/sphinx directory');
+	return "\nFailed creating /opt/kaltura/log/sphinx directory\n";
+}
+if (!OsUtils::execute("mkdir /opt/kaltura/log/sphinx/data")) {
+	logMessage(L_USER, 'Failed creating /opt/kaltura/log/sphinx/data directory');
+	return "\nFailed creating /opt/kaltura/log/sphinx/data directory\n";
+}*/
 
 logMessage(L_USER, 'chmod installer');
 if (!OsUtils::execute("chmod 744 install.php")) {

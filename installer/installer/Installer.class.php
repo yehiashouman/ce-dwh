@@ -254,12 +254,12 @@ class Installer {
 			return "Failed clear cache";
 		}
 		
-		logMessage(L_USER, "Running the sphinx search deamon");
+/*		logMessage(L_USER, "Running the sphinx search deamon");
 		print("Executing sphinx dameon \n");
 		$currentWorkingDir = getcwd();
 		chdir($app->get('APP_DIR').'/plugins/sphinx_search/scripts/');
 		OsUtils::executeInBackground('nohup '.$app->get('APP_DIR').'/plugins/sphinx_search/scripts/watch.daemon.sh -u kaltura');
-		
+*/		
 		logMessage(L_USER, "Running the generate script");
 		chdir($app->get('APP_DIR').'/generator');
 		if (!OsUtils::execute($app->get('APP_DIR').'/generator/generate.sh')) {
@@ -277,7 +277,6 @@ class Installer {
 		print("Executing sphinx dameon \n");
 		OsUtils::executeInBackground('nohup '.$app->get('APP_DIR').'/plugins/sphinx_search/scripts/watch.daemon.onprem.sh');
 		OsUtils::executeInBackground('chkconfig sphinx_watch.sh on');
-		
 		$this->changeDirsAndFilesPermissions($app);
 		
 		return null;

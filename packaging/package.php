@@ -94,6 +94,7 @@ $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_di
 // get it from kmc config file 
 $kmcConf = parse_ini_file($base_dir."/".$manifest['flash']['local_path']."kmc/".$kmcVersion."/config.ini", true);
 
+echo "kdp: " . $kmcConf['defaultKdp']['widgets.kdp1.version'];
 $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir,"kdp3/".$kmcConf['defaultKdp']['widgets.kdp1.version']);
 $revisions += svn_export_group($manifest['flash'], $manifest['global'], $base_dir,"kclip/".$kmcConf['kClip']['widgets.kClip1.version']);
 

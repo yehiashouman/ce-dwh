@@ -78,7 +78,16 @@ $password = $user->getInput('ADMIN_CONSOLE_PASSWORD',
 						"Password should not be empty and should not contain whitespaces, please enter again", 
 						InputValidator::createNoWhitespaceValidator(), 
 						null);
-$app->set('ADMIN_CONSOLE_PASSWORD', $password);						
+$app->set('ADMIN_CONSOLE_PASSWORD', $password);
+
+// HAGAY
+//initFromUserInput timzone value to be set in php.ini + tokens
+//$timezone = $user->getInput('TIME_ZONE',
+//		"The time-zone of your primary server",
+//		"Timezone should be valid, please enter again",
+//		InputValidator::createNoWhitespaceValidator(),
+//		null);
+//$app->set('TIME_ZONE', $timezone);
 						
 $install_config = parse_ini_file(FILE_CONFIG, true);
 

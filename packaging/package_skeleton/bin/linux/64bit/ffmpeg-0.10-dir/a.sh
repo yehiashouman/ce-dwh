@@ -1,0 +1,22 @@
+cp /usr/local/lib/libavfilter.so.2 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libavformat.so.53 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libavcodec.so.53 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libpostproc.so.52 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libswresample.so.0 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libswscale.so.2 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libavutil.so.51 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libvorbisenc.so.2 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libvorbis.so.0 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libtheoraenc.so.1 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libtheoradec.so.1 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libspeex.so.1 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libschroedinger-1.0.so.0 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libopenjpeg.so.1 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libopencore-amrwb.so.0 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libopencore-amrnb.so.0 /root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libmp3lame.so.0 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libfaac.so.0 		/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libaacplus.so.2 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/libogg.so.0 		/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+cp /usr/local/lib/liborc-0.4.so.0 	/root/transcode/ffmpeg-0.10/ffmpeg-0.10-bin
+

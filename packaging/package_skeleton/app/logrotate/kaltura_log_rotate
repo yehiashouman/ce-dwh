@@ -11,7 +11,6 @@
  endscript
 }
 
-
 @LOG_DIR@/kaltura_apache_access.log {
  rotate 5
  daily
@@ -34,7 +33,6 @@
  notifempty
 }
 
-
 @LOG_DIR@/kaltura_prod.log {
  rotate 5
  daily
@@ -52,6 +50,7 @@
  dateext
  notifempty
 }
+
 @LOG_DIR@/KGenericBatchMgr.log {
  rotate 5
  daily
@@ -61,3 +60,15 @@
  notifempty
 }
 
+@LOG_DIR@/cron.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ sharedscripts
+ postrotate
+ @APACHE_RESTART_COMMAND@
+ endscript
+}

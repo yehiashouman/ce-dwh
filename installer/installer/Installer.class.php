@@ -261,6 +261,7 @@ class Installer {
 		OsUtils::executeInBackground('nohup '.$app->get('APP_DIR').'/plugins/sphinx_search/scripts/watch.daemon.sh -u kaltura');
 */		
 		logMessage(L_USER, "Running the generate script");
+		$currentWorkingDir = getcwd();
 		chdir($app->get('APP_DIR').'/generator');
 		if (!OsUtils::execute($app->get('APP_DIR').'/generator/generate.sh')) {
 			return "Failed running the generate script";

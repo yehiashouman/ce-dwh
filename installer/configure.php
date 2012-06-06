@@ -85,7 +85,7 @@ $app->set('ADMIN_CONSOLE_PASSWORD', $password);
 //$timezone = $user->getInput('TIME_ZONE',
 //		"The time-zone of your primary server",
 //		"Timezone should be valid, please enter again",
-//		InputValidator::createNoWhitespaceValidator(),
+//		InputValidator::createTimeZoneValidator(),
 //		null);
 //$app->set('TIME_ZONE', $timezone);
 						

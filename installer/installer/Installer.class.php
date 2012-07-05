@@ -1,7 +1,8 @@
 <?php
 
 define("FILE_INSTALL_CONFIG", "installer/installation.ini"); // this file contains the definitions of the installation itself
-define("APP_SQL_DIR", "/app/deployment/final/sql/"); 		 // this is the relative directory where the final sql files are
+define("APP_SQL_DIR", "/app/deployment/base/sql/"); 		 // this is the relative directory where the final sql files are
+//define("APP_SQL_DIR", "/app/deployment/final/sql/"); 		 // this is the relative directory where the final sql files are
 define("SYMLINK_SEPARATOR", "^"); 			// this is the separator between the two parts of the symbolic link definition
 
 /*
@@ -138,7 +139,7 @@ class Installer {
 		}
 
 		// HAGAY: removed for running installer on final directory and not base+updates
-/*		logMessage(L_USER, "Running update script");
+		logMessage(L_USER, "Running update script");
 		$scriptOutput = OsUtils::executeWithOutput(sprintf("%s %s/deployment/updates/update.php", $app->get('PHP_BIN'), $app->get('APP_DIR')));
 		if ($scriptOutput) {
 			logMessage(L_INFO, "Update script finished, update log:");
@@ -148,7 +149,7 @@ class Installer {
 		} else {
 			return "Failed to run update script";
 		}
-*/			
+			
 		logMessage(L_USER, "Creating data warehouse");
 		if (!OsUtils::execute(sprintf("%s/setup/dwh_setup.sh -h %s -P %s -u %s -p %s -d %s ", $app->get('DWH_DIR'), $app->get('DB1_HOST'), $app->get('DB1_PORT'), $app->get('DWH_USER'), $app->get('DWH_PASS'), $app->get('DWH_DIR')))) {		
 			return "Failed running data warehouse initialization script";

@@ -193,15 +193,15 @@ class Installer {
 		} else {
 			return "Failed to populate sphinx log from cue points";
 		}
-		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxTags.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
-			logMessage(L_INFO, "sphinx tags log created");
-		} else {
-			return "Failed to populate sphinx log from tags";
-		}
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxKusers.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 			logMessage(L_INFO, "sphinx Kusers log created");
 		} else {
 			return "Failed to populate sphinx log from Kusers";
+		}
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxTags.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+			logMessage(L_INFO, "sphinx tags log created");
+		} else {
+			return "Failed to populate sphinx log from tags";
 		}
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxCategories.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 			logMessage(L_INFO, "sphinx Categoriess log created");

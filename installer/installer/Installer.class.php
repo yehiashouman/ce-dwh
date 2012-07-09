@@ -161,15 +161,15 @@ class Installer {
 		} else {
 			return "Failed to create dynamic enums";
 		}
-		
+
+		//HAGAY: activate sphinx scripts from deployment/base/scripts to populate DB
 		logMessage(L_USER, "Configure sphinx");
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/configureSphinx.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 				logMessage(L_INFO, "sphinx configuration file (kaltura.conf) created");
 		} else {
 			return "Failed to create sphinx configuration file (kaltura.conf)";
 		}
-			
-		//HAGAY: add more sphinx scripts from base/scripts		
+				
 		logMessage(L_USER, "Create query cache triggers");
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/createQueryCacheTriggers.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 			logMessage(L_INFO, "sphinx Query Cache Triggers created");
@@ -193,13 +193,6 @@ class Installer {
 		} else {
 			return "Failed to populate sphinx log from cue points";
 		}
-		
-		//HAGAY: add more sphinx scripts from base/scripts
-		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxCategories.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
-			logMessage(L_INFO, "sphinx Categoriess log created");
-		} else {
-			return "Failed to populate sphinx log from categories";
-		}
 		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxTags.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
 			logMessage(L_INFO, "sphinx tags log created");
 		} else {
@@ -210,7 +203,11 @@ class Installer {
 		} else {
 			return "Failed to populate sphinx log from Kusers";
 		}
-		
+		if (OsUtils::execute(sprintf("%s %s/deployment/base/scripts/populateSphinxCategories.php", $app->get('PHP_BIN'), $app->get('APP_DIR')))) {
+			logMessage(L_INFO, "sphinx Categoriess log created");
+		} else {
+			return "Failed to populate sphinx log from categories";
+		}
 //		logMessage(L_USER, "Running sphinx");
 //		if (OsUtils::execute(sprintf("%s/bin/sphinx/searchd --config %s/configurations/sphinx/kaltura.conf", $app->get('BASE_DIR'),$app->get('APP_DIR')))) {
 //				logMessage(L_INFO, "sphinx is running");

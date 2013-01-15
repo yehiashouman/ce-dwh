@@ -2,3 +2,4 @@
 00 * * * * root @BASE_DIR@/dwh/etlsource/execute/etl_update_dims.sh
 59 0,4,8,12,16,20 * * * root @BASE_DIR@/dwh/etlsource/execute/etl_daily.sh
 30 12 * * * root @BASE_DIR@/dwh/etlsource/execute/etl_perform_retention_policy.sh
+0 10 * * * root @APP_DIR@/scripts/dwh/dwh_plays_views_sync.sh >> @LOG_DIR@/log/cron.log
